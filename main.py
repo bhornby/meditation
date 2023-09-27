@@ -34,6 +34,10 @@ def home_screen():
         if st.button("Start Meditation"):
             timer(meditation_time, break_time)
     # end if
+    
+    if st.session_state.stage == 1:
+        st.write("to being you need to...")
+
 # end function
     
 
