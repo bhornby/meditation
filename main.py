@@ -29,7 +29,7 @@ def home_screen():
         make_sidebar()
         
         meditation_time = st.slider("Meditation Time (minutes)", 0, 90 ,5 )
-        break_time = st.slider("Break Time", 1, 30, 5)
+        break_time = st.slider("Break Time", 0, 30, 5)
 
         if st.button("Start Meditation"):
             timer(meditation_time, break_time)
