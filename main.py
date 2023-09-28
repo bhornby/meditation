@@ -14,7 +14,7 @@ def make_sidebar():
         st.markdown("#####")
         st.button("Home", on_click=set_stage, args=[0], use_container_width=True)
         st.button("How to Meditate", on_click=set_stage, args=[1], use_container_width=True)  
-        st.button("Other Resourses", on_click=set_stage, args=[2], use_container_width=True) 
+        st.button("Other Resources", on_click=set_stage, args=[2], use_container_width=True) 
         st.button("Help", on_click=set_stage, args=[3],use_container_width=True)
 # end function
 
@@ -24,7 +24,8 @@ def home_screen():
         st.session_state.stage = 0
 
     if st.session_state.stage == 0:
-        st.title("Meditate Me ")
+        st.title("Meditate Me")
+        st.write("Progressive Meditation for Improved Focus")
         st.divider()
         make_sidebar()
         
@@ -72,22 +73,34 @@ def timer(meditation_time, break_time):
     meditation_seconds = meditation_time*60
     break_seconds = break_time*60
 
-    med_placeholder = st.empty()
-    break_placeholder = st.empty()
+    # has a maximum upper limit of 100
+    my_bar = st.progress(0,text="Meditate")
 
-    med_placeholder.write("Meditate")
-    for i in range(meditation_seconds):
-        time.sleep(1)
-        med_placeholder.write(f"{meditation_seconds - i} seconds left")
+    # gives 100 equal parts of the seconds
+    perc = meditation_seconds/100
+    for i in range(100):
+        my_bar.progress(i+1, text="Meditate")
+        time.sleep(perc)
     # next i
 
-    break_placeholder.write("Rest!")
-    for i in range(break_seconds):
-        time.sleep(i)
-        break_placeholder.write(f"{break_seconds-i} seconds left")
+    # caues that bar to dissapear when completed
+    time.sleep(1)
+    my_bar.empty()
+
+    # has a maximum upper limit of 100
+    my_bar = st.progress(0,text="Rest")
+
+    # gives 100 equal parts of the seconds
+    perc = break_seconds/100
+    for i in range(100):
+        my_bar.progress(i+1, text="Rest")
+        time.sleep(perc)
     # next i
+
+    # caues that bar to dissapear when completed
+    time.sleep(1)
+    my_bar.empty()
 # end function
-
 home_screen()
 
 
